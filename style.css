@@ -17,6 +17,7 @@ body {
   background: var(--bg-color);
   color: #222;
   line-height: 1.7;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ===== HEADER ===== */
@@ -24,41 +25,40 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
+  padding: calc(14px + env(safe-area-inset-top)) 24px 14px;
   background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
-  color: #fff;
-  padding: 14px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: #fff;
   z-index: 100;
 }
 
-.logo {
-  font-size: 18px;
-  font-weight: 700;
+.header.shrink {
+  padding: calc(8px + env(safe-area-inset-top)) 20px 8px;
 }
 
-.header nav a {
+.logo {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.nav a {
   color: #fff;
   margin-left: 16px;
   text-decoration: none;
   font-size: 14px;
-  transition: opacity 0.3s ease;
-}
-
-.header nav a:hover {
-  opacity: 0.85;
 }
 
 .portfolio-btn {
-  padding: 6px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255,255,255,.8);
   border-radius: 20px;
+  padding: 6px 14px;
 }
 
 /* ===== HERO ===== */
 .hero {
-  margin-top: 90px;
+  margin-top: calc(90px + env(safe-area-inset-top));
   text-align: center;
   padding: 70px 20px;
 }
@@ -69,31 +69,22 @@ body {
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 20px;
-  border: 4px solid transparent;
   background:
     linear-gradient(#fff, #fff) padding-box,
     linear-gradient(135deg, var(--green-light), var(--green-dark)) border-box;
-  transition: all 0.45s ease;
+  border: 4px solid transparent;
+  transition: .4s ease;
 }
 
 .profile-img:hover {
-  transform: scale(1.08) rotate(1deg);
-  box-shadow: 0 20px 40px rgba(15, 61, 46, 0.35);
+  transform: scale(1.08);
+  box-shadow: 0 20px 40px rgba(15,61,46,.35);
 }
 
-.hero h2 {
-  font-size: 26px;
-  margin-bottom: 10px;
-}
-
-.hero span {
+.hero h2 span {
   background: linear-gradient(135deg, var(--green-light), var(--green-dark));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.hero p {
-  color: #555;
 }
 
 /* ===== SECTION ===== */
@@ -104,23 +95,107 @@ body {
 }
 
 .section h3 {
-  font-size: 22px;
   margin-bottom: 18px;
-  background: linear-gradient(135deg, var(--green-mid), var(--green-dark));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 22px;
 }
 
-/* ===== CAREER DETAIL (FIXED) ===== */
-#career h3 {
-  margin-top: 40px;
-}
-
+/* ===== CAREER ===== */
 #career ul {
-  list-style: none;          /* 🔥 기본 점 제거 */
-  padding-left: 0;           /* 🔥 기본 여백 제거 */
-  background: #ffffff;
-  padding: 20px 24px;
+  background: #fff;
+  padding: 20px;
   border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(15, 61, 46, 0.08);
-  margin-bottom
+  list-style: none;
+}
+
+#career li {
+  padding-left: 14px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+#career li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--green-light);
+}
+
+/* ===== CONTACT ===== */
+#contact p {
+  cursor: pointer;
+  transition: .3s;
+}
+
+#contact p:hover {
+  color: var(--green-mid);
+  transform: translateX(4px);
+}
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(11,61,46,.9);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  opacity: 0;
+  transition: .4s ease;
+  z-index: 999;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ===== SCROLL EFFECT ===== */
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: .9s ease;
+}
+
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== MOBILE ===== */
+.menu-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+  }
+
+  .nav {
+    position: fixed;
+    top: calc(60px + env(safe-area-inset-top));
+    right: 0;
+    width: 220px;
+    height: calc(100vh - 60px - env(safe-area-inset-top));
+    background: linear-gradient(180deg, var(--green-dark), var(--green-mid));
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    transform: translateX(100%);
+    transition: .35s ease;
+  }
+
+  .nav.open {
+    transform: translateX(0);
+  }
+
+  .nav a {
+    margin: 12px 0;
+    font-size: 16px;
+  }
+}
