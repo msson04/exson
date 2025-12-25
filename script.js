@@ -6,7 +6,10 @@ const observer = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.2 }
+  {
+    threshold: 0.25,
+    rootMargin: "0px 0px -60px 0px"
+  }
 );
 
 document.querySelectorAll(".fade-up, .fade-in").forEach(el => {
