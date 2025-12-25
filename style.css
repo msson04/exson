@@ -1,52 +1,64 @@
 :root {
-  --main-green: #0f3d2e;
-  --light-green: #1f6f54;
-  --bg-color: #f4f7f6;
+  --green-dark: #0b3d2e;
+  --green-mid: #145c44;
+  --green-light: #1f7a5c;
+  --bg-color: #f4f8f6;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Pretendard", sans-serif;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
   background: var(--bg-color);
   color: #222;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
+/* ===== HEADER ===== */
 .header {
   position: fixed;
   top: 0;
   width: 100%;
-  background: var(--main-green);
+  background: linear-gradient(
+    135deg,
+    var(--green-dark),
+    var(--green-mid)
+  );
   color: #fff;
-  padding: 15px 40px;
+  padding: 14px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 100;
 }
 
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+}
+
 .header nav a {
   color: #fff;
-  margin-left: 20px;
+  margin-left: 16px;
   text-decoration: none;
-  font-weight: 500;
+  font-size: 14px;
 }
 
 .portfolio-btn {
   padding: 6px 12px;
-  border: 1px solid #fff;
-  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.8);
+  border-radius: 20px;
 }
 
+/* ===== HERO ===== */
 .hero {
-  margin-top: 100px;
+  margin-top: 90px;
   text-align: center;
-  padding: 80px 20px;
+  padding: 70px 20px;
 }
 
 .profile-img {
@@ -55,41 +67,74 @@ body {
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 20px;
-  border: 4px solid var(--light-green);
+  border: 4px solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, var(--green-light), var(--green-dark)) border-box;
+  transition: all 0.4s ease;
+}
+
+/* 사진 호버 효과 */
+.profile-img:hover {
+  transform: scale(1.08) rotate(1deg);
+  box-shadow: 0 20px 40px rgba(15, 61, 46, 0.35);
+}
+
+.hero h2 {
+  font-size: 26px;
+  margin-bottom: 10px;
 }
 
 .hero span {
-  color: var(--light-green);
+  background: linear-gradient(135deg, var(--green-light), var(--green-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
+.hero p {
+  color: #555;
+}
+
+/* ===== SECTION ===== */
 .section {
-  max-width: 800px;
-  margin: 100px auto;
+  max-width: 900px;
+  margin: 90px auto;
   padding: 0 20px;
 }
 
 .section h3 {
-  color: var(--main-green);
-  margin-bottom: 20px;
-  font-size: 24px;
+  font-size: 22px;
+  margin-bottom: 18px;
+  background: linear-gradient(
+    135deg,
+    var(--green-mid),
+    var(--green-dark)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .section ul li {
   margin-bottom: 10px;
 }
 
+/* ===== FOOTER ===== */
 footer {
   text-align: center;
-  padding: 40px;
-  background: var(--main-green);
+  padding: 40px 20px;
+  background: linear-gradient(
+    135deg,
+    var(--green-dark),
+    var(--green-mid)
+  );
   color: #fff;
 }
 
-/* 애니메이션 초기 상태 */
+/* ===== SCROLL ANIMATION ===== */
 .fade-up, .fade-in {
   opacity: 0;
   transform: translateY(40px);
-  transition: all 0.8s ease;
+  transition: all 0.9s cubic-bezier(.25,.8,.25,1);
 }
 
 .fade-in {
@@ -99,4 +144,29 @@ footer {
 .show {
   opacity: 1;
   transform: translateY(0) scale(1);
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .header {
+    padding: 12px 16px;
+  }
+
+  .header nav a {
+    margin-left: 10px;
+    font-size: 13px;
+  }
+
+  .hero h2 {
+    font-size: 22px;
+  }
+
+  .profile-img {
+    width: 130px;
+    height: 130px;
+  }
+
+  .section {
+    margin: 70px auto;
+  }
 }
