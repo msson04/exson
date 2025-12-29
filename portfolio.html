@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>자유게시판</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="board.js"></script>
+</head>
+<body>
+
+<header class="header">
+  <h1 class="logo">FREE BOARD</h1>
+  <nav class="nav open">
+    <a href="index.html">← 메인으로</a>
+  </nav>
+</header>
+
+<main class="section board">
+
+  <h3>자유게시판</h3>
+
+  <!-- 글 작성 -->
+  <div class="board-write">
+    <input type="text" id="writer" placeholder="작성자" />
+    <input type="text" id="title" placeholder="제목" />
+    <textarea id="content" placeholder="내용을 입력하세요"></textarea>
+    <button id="submit">글 등록</button>
+  </div>
+
+  <!-- 게시글 목록 -->
+  <div id="boardList" class="board-list"></div>
+
+</main>
+
+<footer>
+  <p>© 2025 Minseok Son</p>
+</footer>
+
+</body>
+</html>
