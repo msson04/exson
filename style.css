@@ -170,6 +170,7 @@ body {
 }
 
 @media (max-width: 768px) {
+
   .menu-toggle {
     display: block;
     background: none;
@@ -178,16 +179,18 @@ body {
 
   .nav {
     position: fixed;
-    top: calc(60px + env(safe-area-inset-top));
+    top: calc(72px + env(safe-area-inset-top));
     right: 0;
-    width: 220px;
-    height: calc(100vh - 60px - env(safe-area-inset-top));
+    width: 240px;
+    height: calc(100dvh - 72px - env(safe-area-inset-top));
     background: linear-gradient(180deg, var(--green-dark), var(--green-mid));
     display: flex;
     flex-direction: column;
-    padding: 30px 20px;
+    padding: 24px 20px 30px;
+    gap: 10px;
     transform: translateX(100%);
-    transition: .35s ease;
+    transition: transform .35s ease;
+    overflow-y: auto;
   }
 
   .nav.open {
@@ -195,101 +198,25 @@ body {
   }
 
   .nav a {
-    margin: 12px 0;
-    font-size: 16px;
-  }
-}
-
-/* ===== BOARD WRITE ===== */
-.board-write {
-  background: #fff;
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(15,61,46,.08);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 30px;
-}
-
-.board-write input,
-.board-write textarea {
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-}
-
-.board-write textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-.board-write button {
-  background: linear-gradient(135deg, var(--green-mid), var(--green-dark));
-  color: #fff;
-  border: none;
-  padding: 12px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 15px;
-}
-
-/* ===== BOARD LIST ===== */
-.board-list {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.board-item {
-  background: #fff;
-  padding: 18px 20px;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(15,61,46,.08);
-}
-
-.board-item h4 {
-  font-size: 18px;
-  margin-bottom: 6px;
-}
-
-.board-item .meta {
-  font-size: 13px;
-  color: #777;
-  margin-bottom: 8px;
-}
-
-.board-item .preview {
-  font-size: 15px;
-  color: #444;
-  white-space: pre-wrap;
-}
-
-
-/* ===== MOBILE NAV UI IMPROVEMENT ===== */
-@media (max-width: 768px) {
-
-  .nav a {
     width: 100%;
-    text-align: left;
+    margin: 0;
+    padding: 12px 14px;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
   }
 
-  /* 의견남기기 버튼 강조 */
+  /* 의견남기기 버튼 - 사파리 안전 강조 방식 */
   .nav .portfolio-btn {
-    order: -1; /* 맨 위로 */
-    margin-bottom: 20px;
-    padding: 14px 16px;
-    border-radius: 14px;
+    margin-bottom: 12px;
     background: linear-gradient(135deg, var(--green-light), var(--green-dark));
-    color: #fff;
-    font-size: 16px;
     font-weight: 600;
     text-align: center;
     border: none;
   }
 
-  .nav .portfolio-btn:hover {
-    opacity: 0.95;
+  .nav .portfolio-btn:active {
+    transform: scale(0.98);
   }
 }
