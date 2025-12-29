@@ -39,8 +39,14 @@ body {
 }
 
 .logo {
-  font-weight: 700;
   font-size: 18px;
+  font-weight: 700;
+}
+
+/* ===== NAV (DESKTOP) ===== */
+.nav {
+  display: flex;
+  align-items: center;
 }
 
 .nav a {
@@ -50,10 +56,16 @@ body {
   font-size: 14px;
 }
 
+/* PC용 의견남기기 버튼 */
 .portfolio-btn {
-  border: 1px solid rgba(255,255,255,.8);
+  border: 1px solid rgba(255,255,255,.85);
   border-radius: 20px;
   padding: 6px 14px;
+  transition: .25s ease;
+}
+
+.portfolio-btn:hover {
+  background: rgba(255,255,255,.12);
 }
 
 /* ===== HERO ===== */
@@ -164,29 +176,38 @@ body {
   transform: translateY(0);
 }
 
-/* ===== MOBILE ===== */
+/* ===== HAMBURGER ===== */
 .menu-toggle {
   display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
+.menu-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  margin: 5px 0;
+}
+
+/* ===== MOBILE ===== */
 @media (max-width: 768px) {
 
   .menu-toggle {
     display: block;
-    background: none;
-    border: none;
   }
 
   .nav {
     position: fixed;
-    top: calc(72px + env(safe-area-inset-top));
+    top: 0;
     right: 0;
     width: 240px;
-    height: calc(100dvh - 72px - env(safe-area-inset-top));
+    height: 100dvh;
     background: linear-gradient(180deg, var(--green-dark), var(--green-mid));
-    display: flex;
     flex-direction: column;
-    padding: 24px 20px 30px;
+    padding: calc(90px + env(safe-area-inset-top)) 20px 30px;
     gap: 10px;
     transform: translateX(100%);
     transition: transform .35s ease;
@@ -198,25 +219,25 @@ body {
   }
 
   .nav a {
-    width: 100%;
     margin: 0;
-    padding: 12px 14px;
+    padding: 14px;
     font-size: 16px;
-    color: #fff;
-    text-decoration: none;
     border-radius: 12px;
   }
 
-  /* 의견남기기 버튼 - 사파리 안전 강조 방식 */
+  /* 모바일 의견남기기 버튼 - 최종 안정 버전 */
   .nav .portfolio-btn {
-    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
     background: linear-gradient(135deg, var(--green-light), var(--green-dark));
-    font-weight: 600;
-    text-align: center;
+    font-weight: 700;
+    border-radius: 14px;
     border: none;
   }
 
   .nav .portfolio-btn:active {
-    transform: scale(0.98);
+    transform: scale(0.97);
   }
 }
