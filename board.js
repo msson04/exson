@@ -4,12 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
      🔥 Firebase 설정 (여기 붙여넣기)
   ============================= */
   const firebaseConfig = {
-    apiKey: "여기에_네_apiKey",
-    authDomain: "여기에_authDomain",
-    projectId: "여기에_projectId",
-    storageBucket: "여기에_storageBucket",
-    messagingSenderId: "여기에_senderId",
-    appId: "여기에_appId"
+    apiKey: "AIzaSyBJWU594MekIaM6_syF5ylSliTt3q1EQf4",
+    authDomain: "minseok-profile-board.firebaseapp.com",
+    projectId: "minseok-profile-board",
+    storageBucket: "minseok-profile-board.firebasestorage.app",
+    messagingSenderId: "417663849696",
+    appId: "1:417663849696:web:7e4c6e3acf2c6c4bcd2c85",
+    measurementId: "G-9WW2NCX785"
   };
 
   firebase.initializeApp(firebaseConfig);
