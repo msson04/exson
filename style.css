@@ -56,6 +56,11 @@ body {
   font-size: 14px;
 }
 
+.nav a.active {
+  background: rgba(255,255,255,.18);
+  font-weight: 700;
+}
+
 /* PC용 의견남기기 버튼 */
 .portfolio-btn {
   border: 1px solid rgba(255,255,255,.85);
@@ -272,5 +277,6 @@ body {
     transform: scale(0.97);
   }
 }
+
 
 
