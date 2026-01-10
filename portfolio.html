@@ -2,23 +2,21 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>자유게시판</title>
-
   <meta
-    name="description"
-    content="손민석 포트폴리오 방문자를 위한 자유게시판입니다."
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   />
 
-  <link rel="preload" href="style.css" as="style" />
+  <title>의견 남기기</title>
+
+  <meta name="description" content="자유롭게 의견을 남길 수 있는 게시판입니다." />
+
   <link rel="stylesheet" href="style.css" />
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-  <!-- JS -->
   <script defer src="board.js"></script>
 </head>
 <body>
@@ -26,20 +24,35 @@
 <header class="header">
   <h1 class="logo">FREE BOARD</h1>
   <nav class="nav">
-    <a href="index.html">← 메인으로</a>
+    <a href="index.html">← 메인</a>
   </nav>
 </header>
 
 <main class="section board">
-  <h3>자유게시판</h3>
+  <h3>의견 남기기</h3>
 
   <!-- WRITE -->
-  <div class="board-write">
-    <input type="text" id="writer" placeholder="작성자" />
-    <input type="text" id="title" placeholder="제목" />
-    <textarea id="content" placeholder="내용을 입력하세요"></textarea>
-    <button id="submit">글 등록</button>
-  </div>
+  <form class="board-write" onsubmit="return false;">
+    <input
+      type="text"
+      id="writer"
+      placeholder="작성자"
+      autocomplete="off"
+    />
+    <input
+      type="text"
+      id="title"
+      placeholder="제목"
+      autocomplete="off"
+    />
+    <textarea
+      id="content"
+      placeholder="내용을 입력하세요"
+      rows="4"
+    ></textarea>
+
+    <button id="submit" type="button">글 등록</button>
+  </form>
 
   <!-- LIST -->
   <div id="boardList" class="board-list"></div>
