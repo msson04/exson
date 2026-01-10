@@ -61,6 +61,7 @@ body {
   text-decoration: none;
   font-size: 14px;
   border-radius: 12px;
+  padding: 6px 10px;
   transition: background .25s ease;
 }
 
@@ -69,7 +70,7 @@ body {
   font-weight: 700;
 }
 
-/* 의견남기기 버튼 */
+/* 의견남기기 버튼 (PC) */
 .portfolio-btn {
   border: 1px solid rgba(255,255,255,.85);
   border-radius: 20px;
@@ -221,7 +222,7 @@ body {
 }
 
 /* ===============================
-   BOARD WRITE
+   BOARD
 ================================ */
 .board-write {
   background: #fff;
@@ -262,9 +263,6 @@ body {
   cursor: not-allowed;
 }
 
-/* ===============================
-   BOARD LIST
-================================ */
 .board-list {
   display: flex;
   flex-direction: column;
@@ -296,10 +294,13 @@ body {
 }
 
 /* ===============================
-   MOBILE
+   MOBILE FLOATING BOARD BUTTON
 ================================ */
-@media (max-width: 768px) {
+.mobile-board-btn {
+  display: none;
+}
 
+@media (max-width: 768px) {
   .menu-toggle {
     display: block;
   }
@@ -340,19 +341,6 @@ body {
     border: none;
   }
 
-  .nav .portfolio-btn:active {
-    transform: scale(0.97);
-  }
-}
-
-/* ===============================
-   MOBILE BOARD FLOAT BUTTON
-================================ */
-.mobile-board-btn {
-  display: none;
-}
-
-@media (max-width: 768px) {
   .mobile-board-btn {
     position: fixed;
     right: 20px;
@@ -369,12 +357,10 @@ body {
     text-decoration: none;
     box-shadow: 0 10px 25px rgba(15,61,46,.35);
     z-index: 900;
-    transition: transform .25s ease;
+    transition: transform .35s ease, opacity .35s ease;
   }
 
   .mobile-board-btn:active {
     transform: scale(0.94);
   }
 }
-
-
