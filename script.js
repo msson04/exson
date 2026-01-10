@@ -95,6 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ===============================
      MOBILE MENU TOGGLE
   =============================== */
+  menuBtn?.setAttribute(
+    "aria-expanded",
+    nav.classList.contains("open")
+  );
+
   menuBtn?.addEventListener("click", e => {
     e.stopPropagation();
     nav.classList.toggle("open");
@@ -144,4 +149,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
 
