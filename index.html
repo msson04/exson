@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>민석이를 소개합니다</title>
-  <link rel="stylesheet" href="style.css" />
+  <<link rel="preload" href="style.css" as="style">
+  <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
 </head>
 <body>
@@ -27,7 +28,15 @@
 </header>
 
   <section class="hero fade-in">
-    <img src="profile.jpg" alt="프로필 사진" class="profile-img"/>
+    <img
+      src="profile.jpg"
+      alt="손민석 프로필 사진"
+      class="profile-img"
+      width="160"
+      height="160"
+      loading="lazy"
+      decoding="async"
+    />
     <h2>안녕하세요, <span>손민석</span>입니다</h2>
     <p>盡人事待天命</p>
   </section>
@@ -76,6 +85,7 @@
 
 </body>
 </html>
+
 
 
 
