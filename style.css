@@ -5,7 +5,9 @@
   --bg-color: #f4f8f6;
 }
 
-/* ===== RESET ===== */
+/* ===============================
+   RESET
+================================ */
 * {
   margin: 0;
   padding: 0;
@@ -20,7 +22,9 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* ===== HEADER ===== */
+/* ===============================
+   HEADER
+================================ */
 .header {
   position: fixed;
   top: 0;
@@ -43,7 +47,9 @@ body {
   font-weight: 700;
 }
 
-/* ===== NAV (DESKTOP) ===== */
+/* ===============================
+   NAV (DESKTOP)
+================================ */
 .nav {
   display: flex;
   align-items: center;
@@ -54,6 +60,8 @@ body {
   margin-left: 16px;
   text-decoration: none;
   font-size: 14px;
+  border-radius: 12px;
+  transition: background .25s ease;
 }
 
 .nav a.active {
@@ -61,7 +69,7 @@ body {
   font-weight: 700;
 }
 
-/* PC용 의견남기기 버튼 */
+/* 의견남기기 버튼 */
 .portfolio-btn {
   border: 1px solid rgba(255,255,255,.85);
   border-radius: 20px;
@@ -70,10 +78,12 @@ body {
 }
 
 .portfolio-btn:hover {
-  background: rgba(255,255,255,.12);
+  background: rgba(255,255,255,.15);
 }
 
-/* ===== HERO ===== */
+/* ===============================
+   HERO
+================================ */
 .hero {
   margin-top: calc(90px + env(safe-area-inset-top));
   text-align: center;
@@ -104,7 +114,9 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* ===== SECTION ===== */
+/* ===============================
+   SECTION
+================================ */
 .section {
   max-width: 900px;
   margin: 90px auto;
@@ -116,7 +128,9 @@ body {
   font-size: 22px;
 }
 
-/* ===== CAREER ===== */
+/* ===============================
+   CAREER
+================================ */
 #career ul {
   background: #fff;
   padding: 20px;
@@ -137,10 +151,12 @@ body {
   color: var(--green-light);
 }
 
-/* ===== CONTACT ===== */
+/* ===============================
+   CONTACT
+================================ */
 #contact p {
   cursor: pointer;
-  transition: .3s;
+  transition: .3s ease;
 }
 
 #contact p:hover {
@@ -148,7 +164,9 @@ body {
   transform: translateX(4px);
 }
 
-/* ===== TOAST ===== */
+/* ===============================
+   TOAST
+================================ */
 .toast {
   position: fixed;
   bottom: 40px;
@@ -169,7 +187,10 @@ body {
   transform: translateX(-50%) translateY(0);
 }
 
-/* ===== SCROLL EFFECT ===== */
+/* ===============================
+   SCROLL EFFECT
+================================ */
+.fade-in,
 .fade-up {
   opacity: 0;
   transform: translateY(40px);
@@ -181,7 +202,9 @@ body {
   transform: translateY(0);
 }
 
-/* ===== HAMBURGER ===== */
+/* ===============================
+   HAMBURGER
+================================ */
 .menu-toggle {
   display: none;
   background: none;
@@ -197,8 +220,10 @@ body {
   margin: 5px 0;
 }
 
-/* ===== BOARD WRITE ===== */ 
-.board-write { 
+/* ===============================
+   BOARD WRITE
+================================ */
+.board-write {
   background: #fff;
   padding: 20px;
   border-radius: 14px;
@@ -207,28 +232,72 @@ body {
   flex-direction: column;
   gap: 12px;
   margin-bottom: 30px;
-} 
-.board-write input, .board-write textarea { 
-  padding: 12px 14px; 
-  border-radius: 10px; 
-  border: 1px solid #ccc; 
-  font-size: 14px; 
-} 
-.board-write textarea { 
-  resize: vertical; min-height: 100px; 
-} 
-.board-write button { 
-  background: linear-gradient(135deg, var(--green-mid), var(--green-dark)); 
-  color: #fff; border: none; padding: 12px; border-radius: 20px; 
-  cursor: pointer; font-size: 15px; }
+}
 
-/* ===== BOARD LIST ===== */ 
-.board-list { display: flex; flex-direction: column; gap: 18px; } 
-.board-item { background: #fff; padding: 18px 20px; border-radius: 14px; box-shadow: 0 10px 30px rgba(15,61,46,.08); } 
-.board-item h4 { font-size: 18px; margin-bottom: 6px; } .board-item .meta { font-size: 13px; color: #777; margin-bottom: 8px; } 
-.board-item .preview { font-size: 15px; color: #444; white-space: pre-wrap; }
+.board-write input,
+.board-write textarea {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
 
-/* ===== MOBILE ===== */
+.board-write textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.board-write button {
+  background: linear-gradient(135deg, var(--green-mid), var(--green-dark));
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.board-write button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+/* ===============================
+   BOARD LIST
+================================ */
+.board-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.board-item {
+  background: #fff;
+  padding: 18px 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(15,61,46,.08);
+}
+
+.board-item h4 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.board-item .meta {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+.board-item .preview {
+  font-size: 15px;
+  color: #444;
+  white-space: pre-wrap;
+}
+
+/* ===============================
+   MOBILE
+================================ */
 @media (max-width: 768px) {
 
   .menu-toggle {
@@ -258,10 +327,8 @@ body {
     margin: 0;
     padding: 14px;
     font-size: 16px;
-    border-radius: 12px;
   }
 
-  /* 모바일 의견남기기 버튼 - 최종 안정 버전 */
   .nav .portfolio-btn {
     display: flex;
     align-items: center;
@@ -277,6 +344,3 @@ body {
     transform: scale(0.97);
   }
 }
-
-
-
