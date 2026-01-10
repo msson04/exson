@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.querySelectorAll('.nav a[href^="#"]');
   const sections = document.querySelectorAll("section");
   const hero = document.querySelector(".hero");
+  const mobileBoardBtn = document.querySelector(".mobile-board-btn");
 
   /* ===============================
      FADE-IN / FADE-UP ANIMATION
@@ -26,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
       fadeObserver.observe(el);
     });
   } else {
-    // fallback
+    // Fallback
     document.querySelectorAll(".fade-in, .fade-up").forEach(el => {
       el.classList.add("show");
     });
@@ -53,9 +54,14 @@ document.addEventListener("DOMContentLoaded", () => {
         behavior: "smooth"
       });
 
+      // 모바일 메뉴 닫기
       nav.classList.remove("open");
       document.body.style.overflow = "";
       menuBtn?.setAttribute("aria-expanded", "false");
+
+      if (mobileBoardBtn) {
+        mobileBoardBtn.style.display = "";
+      }
     });
   });
 
@@ -103,6 +109,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const isOpen = nav.classList.toggle("open");
     document.body.style.overflow = isOpen ? "hidden" : "";
     menuBtn.setAttribute("aria-expanded", String(isOpen));
+
+    // 메뉴 열리면 플로팅 버튼 숨김
+    if (mobileBoardBtn) {
+      mobileBoardBtn.style.display = isOpen ? "none" : "";
+    }
   });
 
   // 메뉴 외부 클릭 시 닫기
@@ -114,9 +125,36 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
       nav.classList.remove("open");
       document.body.style.overflow = "";
-      menuBtn.setAttribute("aria-expanded", "false");
+      menuBtn?.setAttribute("aria-expanded", "false");
+
+      if (mobileBoardBtn) {
+        mobileBoardBtn.style.display = "";
+      }
     }
   });
+
+  /* ===============================
+     MOBILE FLOAT BUTTON SCROLL UX
+  =============================== */
+  let lastScrollY = window.scrollY;
+
+  if (mobileBoardBtn) {
+    window.addEventListener("scroll", () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 120) {
+        // 아래로 스크롤
+        mobileBoardBtn.style.transform = "translateY(80px)";
+        mobileBoardBtn.style.opacity = "0";
+      } else {
+        // 위로 스크롤
+        mobileBoardBtn.style.transform = "translateY(0)";
+        mobileBoardBtn.style.opacity = "1";
+      }
+
+      lastScrollY = currentScrollY;
+    });
+  }
 
   /* ===============================
      COPY TO CLIPBOARD + TOAST
