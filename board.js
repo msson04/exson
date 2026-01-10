@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   /* =============================
-     FIREBASE INIT
+     Firebase
   ============================= */
   const firebaseConfig = {
     apiKey: "AIzaSyBJWU594MekIaM6_syF5ylSliTt3q1EQf4",
@@ -16,119 +16,120 @@ document.addEventListener("DOMContentLoaded", () => {
   const db = firebase.firestore();
 
   /* =============================
+     ADMIN
+  ============================= */
+  const ADMIN_KEY = "board_admin";
+  const ADMIN_PASSWORD = "1234"; // 🔐 여기만 너가 변경
+
+  let isAdmin = sessionStorage.getItem(ADMIN_KEY) === "true";
+
+  // 관리자 진입 (Shift + A)
+  document.addEventListener("keydown", e => {
+    if (e.shiftKey && e.key.toLowerCase() === "a") {
+      const pw = prompt("관리자 비밀번호 입력");
+      if (pw === ADMIN_PASSWORD) {
+        sessionStorage.setItem(ADMIN_KEY, "true");
+        alert("관리자 모드 활성화");
+        location.reload();
+      } else {
+        alert("비밀번호가 틀렸습니다");
+      }
+    }
+  });
+
+  /* =============================
      DOM
   ============================= */
-  const writerInput = document.getElementById("writer");
-  const titleInput = document.getElementById("title");
-  const contentInput = document.getElementById("content");
-  const submitBtn = document.getElementById("submit");
+  const writer = document.getElementById("writer");
+  const title = document.getElementById("title");
+  const content = document.getElementById("content");
+  const submit = document.getElementById("submit");
   const boardList = document.getElementById("boardList");
 
   /* =============================
-     TOAST
+     WRITE
   ============================= */
-  function showToast(message) {
-    let toast = document.querySelector(".toast");
-
-    if (!toast) {
-      toast = document.createElement("div");
-      toast.className = "toast";
-      document.body.appendChild(toast);
-    }
-
-    toast.textContent = message;
-    toast.classList.add("show");
-
-    setTimeout(() => {
-      toast.classList.remove("show");
-    }, 2000);
-  }
-
-  function disableSubmit(state) {
-    submitBtn.disabled = state;
-    submitBtn.textContent = state ? "등록 중..." : "글 등록";
-  }
-
-  /* =============================
-     ENTER SUBMIT PREVENT
-  ============================= */
-  [writerInput, titleInput].forEach(input => {
-    input.addEventListener("keydown", e => {
-      if (e.key === "Enter") e.preventDefault();
-    });
-  });
-
-  /* =============================
-     SUBMIT POST
-  ============================= */
-  submitBtn.addEventListener("click", async () => {
-    const writer = writerInput.value.trim();
-    const title = titleInput.value.trim();
-    const content = contentInput.value.trim();
-
-    if (!writer || !title || !content) {
-      showToast("모든 항목을 입력해주세요");
+  submit.addEventListener("click", async () => {
+    if (!writer.value || !title.value || !content.value) {
+      alert("모든 항목을 입력해주세요");
       return;
     }
 
-    try {
-      disableSubmit(true);
+    await db.collection("posts").add({
+      writer: writer.value,
+      title: title.value,
+      content: content.value,
+      pinned: false,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
 
-      await db.collection("posts").add({
-        writer,
-        title,
-        content,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-
-      writerInput.value = "";
-      titleInput.value = "";
-      contentInput.value = "";
-
-      showToast("등록되었습니다");
-
-    } catch (err) {
-      console.error(err);
-      showToast("등록에 실패했습니다");
-    } finally {
-      disableSubmit(false);
-    }
+    writer.value = "";
+    title.value = "";
+    content.value = "";
   });
 
   /* =============================
-     REALTIME LIST
+     READ (PIN FIRST)
   ============================= */
   db.collection("posts")
+    .orderBy("pinned", "desc")
     .orderBy("createdAt", "desc")
     .onSnapshot(snapshot => {
       boardList.innerHTML = "";
 
       snapshot.forEach(doc => {
         const post = doc.data();
+        const id = doc.id;
+
         const item = document.createElement("article");
         item.className = "board-item";
 
         const date = post.createdAt
-          ? post.createdAt.toDate().toLocaleDateString("ko-KR")
+          ? post.createdAt.toDate().toLocaleDateString()
           : "";
 
         item.innerHTML = `
-          <h4>${escapeHTML(post.title)}</h4>
-          <p class="meta">${escapeHTML(post.writer)} · ${date}</p>
-          <p class="preview">${escapeHTML(post.content)}</p>
+          ${post.pinned ? `<div class="pin">📌 고정</div>` : ""}
+          <h4>${post.title}</h4>
+          <p class="meta">${post.writer} · ${date}</p>
+          <p class="preview">${post.content}</p>
+
+          ${isAdmin ? `
+            <div class="admin-actions">
+              <button data-del="${id}">삭제</button>
+              <button data-pin="${id}">
+                ${post.pinned ? "고정 해제" : "고정"}
+              </button>
+            </div>
+          ` : ""}
         `;
 
         boardList.appendChild(item);
       });
+
+      bindAdminActions();
     });
 
   /* =============================
-     XSS BASIC PROTECTION
+     ADMIN ACTIONS
   ============================= */
-  function escapeHTML(text) {
-    const div = document.createElement("div");
-    div.textContent = text;
-    return div.innerHTML;
+  function bindAdminActions() {
+    if (!isAdmin) return;
+
+    document.querySelectorAll("[data-del]").forEach(btn => {
+      btn.onclick = async () => {
+        if (!confirm("정말 삭제하시겠습니까?")) return;
+        await db.collection("posts").doc(btn.dataset.del).delete();
+      };
+    });
+
+    document.querySelectorAll("[data-pin]").forEach(btn => {
+      btn.onclick = async () => {
+        const ref = db.collection("posts").doc(btn.dataset.pin);
+        const snap = await ref.get();
+        await ref.update({ pinned: !snap.data().pinned });
+      };
+    });
   }
 
 });
