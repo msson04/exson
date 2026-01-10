@@ -13,22 +13,24 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ===============================
      FADE-IN / FADE-UP ANIMATION
   =============================== */
-  const fadeObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-      }
+  if ("IntersectionObserver" in window) {
+    const fadeObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll(".fade-in, .fade-up").forEach(el => {
+      fadeObserver.observe(el);
     });
-  }, { threshold: 0.15 });
-
-  if (!("IntersectionObserver" in window)) {
-    document.querySelectorAll(".fade-in, .fade-up")
-      .forEach(el => el.classList.add("show"));
+  } else {
+    // fallback
+    document.querySelectorAll(".fade-in, .fade-up").forEach(el => {
+      el.classList.add("show");
+    });
   }
-
-  document.querySelectorAll(".fade-in, .fade-up").forEach(el => {
-    fadeObserver.observe(el);
-  });
 
   /* ===============================
      SMOOTH SCROLL (NAV)
@@ -51,9 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
         behavior: "smooth"
       });
 
-      // 모바일 메뉴 닫기
       nav.classList.remove("open");
       document.body.style.overflow = "";
+      menuBtn?.setAttribute("aria-expanded", "false");
     });
   });
 
@@ -72,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sections.forEach(section => {
       const top = section.offsetTop - header.offsetHeight - 20;
       const bottom = top + section.offsetHeight;
-      const id = section.getAttribute("id");
+      const id = section.id;
 
       if (scrollY >= top && scrollY < bottom) {
         navLinks.forEach(l => l.classList.remove("active"));
@@ -83,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Hero 영역 기본 active
+    // Hero 기본 active
     if (!activeSet && hero && scrollY < hero.offsetHeight) {
       navLinks.forEach(l => l.classList.remove("active"));
       document
@@ -95,21 +97,15 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ===============================
      MOBILE MENU TOGGLE
   =============================== */
-  menuBtn?.setAttribute(
-    "aria-expanded",
-    nav.classList.contains("open")
-  );
-
   menuBtn?.addEventListener("click", e => {
     e.stopPropagation();
-    nav.classList.toggle("open");
 
-    // 배경 스크롤 방지
-    document.body.style.overflow =
-      nav.classList.contains("open") ? "hidden" : "";
+    const isOpen = nav.classList.toggle("open");
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    menuBtn.setAttribute("aria-expanded", String(isOpen));
   });
 
-  // 메뉴 밖 클릭 시 닫기
+  // 메뉴 외부 클릭 시 닫기
   document.addEventListener("click", e => {
     if (
       nav.classList.contains("open") &&
@@ -118,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
       nav.classList.remove("open");
       document.body.style.overflow = "";
+      menuBtn.setAttribute("aria-expanded", "false");
     }
   });
 
@@ -125,9 +122,17 @@ document.addEventListener("DOMContentLoaded", () => {
      COPY TO CLIPBOARD + TOAST
   =============================== */
   document.querySelectorAll("[data-copy]").forEach(el => {
-    el.addEventListener("click", () => {
+    const handler = () => {
       navigator.clipboard.writeText(el.dataset.copy);
       showToast("복사되었습니다");
+    };
+
+    el.addEventListener("click", handler);
+    el.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        handler();
+      }
     });
   });
 
@@ -149,5 +154,3 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
-
-
