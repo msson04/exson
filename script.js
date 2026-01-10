@@ -21,6 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }, { threshold: 0.15 });
 
+  if (!("IntersectionObserver" in window)) {
+    document.querySelectorAll(".fade-in, .fade-up")
+      .forEach(el => el.classList.add("show"));
+  }
+
   document.querySelectorAll(".fade-in, .fade-up").forEach(el => {
     fadeObserver.observe(el);
   });
@@ -139,3 +144,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
