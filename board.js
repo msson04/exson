@@ -114,7 +114,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const id = doc.id;
 
         const date = post.createdAt
-          ? post.createdAt.toDate().toLocaleDateString()
+          ? post.createdAt.toDate().toLocaleString("ko-KR", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit"
+            })
           : "";
 
         const item = document.createElement("article");
