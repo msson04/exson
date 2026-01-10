@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   /* =============================
-     Firebase
+     Firebase 초기화
+     ⚠️ index.html / portfolio.html 에서
+     firebase-app / firestore 스크립트 로드 필수
   ============================= */
   const firebaseConfig = {
     apiKey: "AIzaSyBJWU594MekIaM6_syF5ylSliTt3q1EQf4",
@@ -12,18 +14,21 @@ document.addEventListener("DOMContentLoaded", () => {
     appId: "1:417663849696:web:7e4c6e3acf2c6c4bcd2c85"
   };
 
-  firebase.initializeApp(firebaseConfig);
+  // 🔴 중복 초기화 방지 (중요)
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+
   const db = firebase.firestore();
 
   /* =============================
      ADMIN
   ============================= */
   const ADMIN_KEY = "board_admin";
-  const ADMIN_PASSWORD = "4768"; // 🔐 여기만 너가 변경
+  const ADMIN_PASSWORD = "1234"; // 🔐 반드시 변경
 
   let isAdmin = sessionStorage.getItem(ADMIN_KEY) === "true";
 
-  // 관리자 진입 (Shift + A)
   document.addEventListener("keydown", e => {
     if (e.shiftKey && e.key.toLowerCase() === "a") {
       const pw = prompt("관리자 비밀번호 입력");
@@ -40,36 +45,58 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =============================
      DOM
   ============================= */
-  const writer = document.getElementById("writer");
-  const title = document.getElementById("title");
-  const content = document.getElementById("content");
-  const submit = document.getElementById("submit");
+  const writerInput = document.getElementById("writer");
+  const titleInput = document.getElementById("title");
+  const contentInput = document.getElementById("content");
+  const submitBtn = document.getElementById("submit");
   const boardList = document.getElementById("boardList");
 
+  if (!writerInput || !titleInput || !contentInput || !submitBtn || !boardList) {
+    console.error("❌ 게시판 DOM 요소를 찾을 수 없습니다");
+    return;
+  }
+
   /* =============================
-     WRITE
+     WRITE (저장)
   ============================= */
-  submit.addEventListener("click", async () => {
-    if (!writer.value || !title.value || !content.value) {
+  submitBtn.addEventListener("click", async () => {
+    if (
+      !writerInput.value.trim() ||
+      !titleInput.value.trim() ||
+      !contentInput.value.trim()
+    ) {
       alert("모든 항목을 입력해주세요");
       return;
     }
 
-    await db.collection("posts").add({
-      writer: writer.value,
-      title: title.value,
-      content: content.value,
-      pinned: false,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
+    submitBtn.disabled = true;
 
-    writer.value = "";
-    title.value = "";
-    content.value = "";
+    try {
+      await db.collection("posts").add({
+        writer: writerInput.value.trim(),
+        title: titleInput.value.trim(),
+        content: contentInput.value.trim(),
+        pinned: false,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      writerInput.value = "";
+      titleInput.value = "";
+      contentInput.value = "";
+
+    } catch (err) {
+      console.error("❌ 글 저장 실패:", err);
+      alert("저장 중 오류가 발생했습니다");
+    } finally {
+      submitBtn.disabled = false;
+    }
   });
 
   /* =============================
-     READ (PIN FIRST)
+     READ (조회)
+     🔴 pinned + createdAt 정렬은
+     Firestore 콘솔에서 복합 인덱스 생성 필요
+     (에러 메시지에 링크 자동 제공됨)
   ============================= */
   db.collection("posts")
     .orderBy("pinned", "desc")
@@ -77,22 +104,27 @@ document.addEventListener("DOMContentLoaded", () => {
     .onSnapshot(snapshot => {
       boardList.innerHTML = "";
 
+      if (snapshot.empty) {
+        boardList.innerHTML = "<p>게시글이 없습니다.</p>";
+        return;
+      }
+
       snapshot.forEach(doc => {
         const post = doc.data();
         const id = doc.id;
-
-        const item = document.createElement("article");
-        item.className = "board-item";
 
         const date = post.createdAt
           ? post.createdAt.toDate().toLocaleDateString()
           : "";
 
+        const item = document.createElement("article");
+        item.className = "board-item";
+
         item.innerHTML = `
-          ${post.pinned ? `<div class="pin">📌 고정</div>` : ""}
-          <h4>${post.title}</h4>
-          <p class="meta">${post.writer} · ${date}</p>
-          <p class="preview">${post.content}</p>
+          ${post.pinned ? `<div class="pin">📌 고정된 글</div>` : ""}
+          <h4>${escapeHTML(post.title)}</h4>
+          <p class="meta">${escapeHTML(post.writer)} · ${date}</p>
+          <p class="preview">${escapeHTML(post.content)}</p>
 
           ${isAdmin ? `
             <div class="admin-actions">
@@ -108,6 +140,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       bindAdminActions();
+    }, err => {
+      console.error("❌ 게시글 조회 실패:", err);
+      alert("게시글을 불러오지 못했습니다");
     });
 
   /* =============================
@@ -130,6 +165,19 @@ document.addEventListener("DOMContentLoaded", () => {
         await ref.update({ pinned: !snap.data().pinned });
       };
     });
+  }
+
+  /* =============================
+     XSS 방지
+  ============================= */
+  function escapeHTML(str) {
+    return str.replace(/[&<>"']/g, m => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    })[m]);
   }
 
 });
