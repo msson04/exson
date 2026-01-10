@@ -344,3 +344,37 @@ body {
     transform: scale(0.97);
   }
 }
+
+/* ===============================
+   MOBILE BOARD FLOAT BUTTON
+================================ */
+.mobile-board-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-board-btn {
+    position: fixed;
+    right: 20px;
+    bottom: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green-light), var(--green-dark));
+    color: #fff;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(15,61,46,.35);
+    z-index: 900;
+    transition: transform .25s ease;
+  }
+
+  .mobile-board-btn:active {
+    transform: scale(0.94);
+  }
+}
+
+
