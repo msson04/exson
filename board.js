@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const db = firebase.firestore();
 
   /* =============================
-     DOM ELEMENTS
+     DOM
   ============================= */
   const writerInput = document.getElementById("writer");
   const titleInput = document.getElementById("title");
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const boardList = document.getElementById("boardList");
 
   /* =============================
-     UTILS
+     TOAST
   ============================= */
   function showToast(message) {
     let toast = document.querySelector(".toast");
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =============================
-     ENTER KEY PREVENT
+     ENTER SUBMIT PREVENT
   ============================= */
   [writerInput, titleInput].forEach(input => {
     input.addEventListener("keydown", e => {
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =============================
-     POST SUBMIT
+     SUBMIT POST
   ============================= */
   submitBtn.addEventListener("click", async () => {
     const writer = writerInput.value.trim();
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =============================
-     REALTIME LISTENER
+     REALTIME LIST
   ============================= */
   db.collection("posts")
     .orderBy("createdAt", "desc")
