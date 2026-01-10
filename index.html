@@ -2,10 +2,21 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>민석이를 소개합니다</title>
-  <<link rel="preload" href="style.css" as="style">
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>손민석 | 포트폴리오</title>
+
+  <!-- SEO -->
+  <meta
+    name="description"
+    content="손민석의 경력, 자격, 프로젝트를 소개하는 개인 포트폴리오 웹사이트입니다."
+  />
+
+  <!-- CSS -->
+  <link rel="preload" href="style.css" as="style" />
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- JS -->
   <script defer src="script.js"></script>
 </head>
 <body>
@@ -13,7 +24,11 @@
 <header class="header">
   <h1 class="logo">MY PROFILE</h1>
 
-  <button class="menu-toggle" aria-label="메뉴 열기">
+  <button
+    class="menu-toggle"
+    aria-label="메뉴 열기"
+    aria-expanded="false"
+  >
     <span></span>
     <span></span>
     <span></span>
@@ -27,76 +42,75 @@
   </nav>
 </header>
 
-  <section class="hero fade-in">
-    <img
-      src="profile.jpg"
-      alt="손민석 프로필 사진"
-      class="profile-img"
-      width="160"
-      height="160"
-      loading="lazy"
-      decoding="async"
-    />
-    <h2>안녕하세요, <span>손민석</span>입니다</h2>
-    <p>盡人事待天命</p>
-  </section>
+<!-- HERO -->
+<section class="hero fade-in">
+  <img
+    src="profile.jpg"
+    alt="손민석 프로필 사진"
+    class="profile-img"
+    width="160"
+    height="160"
+    loading="lazy"
+    decoding="async"
+  />
+  <h2>안녕하세요, <span>손민석</span>입니다</h2>
+  <p>盡人事待天命</p>
+</section>
 
-  <section id="about" class="section fade-up">
-    <h3>자기소개</h3>
-    <p>
-      미래교통 기술과 문화 발전에 기여하고싶은 저는 손민석 입니다.
-    </p>
-  </section>
+<!-- ABOUT -->
+<section id="about" class="section fade-up">
+  <h3>자기소개</h3>
+  <p>
+    미래 교통 기술과 문화 발전에 기여하고 싶은 엔지니어 손민석입니다.
+  </p>
+</section>
 
-  <section id="career" class="section fade-up">
-    <h3>경력 · 직무 소개</h3>
-    <ul>
-      <li>2022.12 ~ 2023.01 한국철도공사 청평신호제어사업소 관제사원</li>
-      <li>2023.01 ~ 2024.01 한국도로공사 도로교통연구원 ITS인증평가센터 성능평가주임</li>
-      <li>2024.01 ~ 2025.07 국군지휘통신사령부 연평도통신소 복무</li>
-      <li>2025.07 ~ 2026.03 한국도로공사 동서울지사 정보통신주임</li>
-      <li>2026.03 ~ 2030.02 건국대학교 산업경영융합학부 학사</li>
-    </ul><br>
-    <h3>자격 소개</h3>
-    <ul>
-      <li>전기전자분야 산업기사 1개, 기능사 5개</li>
-      <li>한국사능력검정1급</li>      
-      <li>JLPT N3, TOEIC 830</li> 
-    </ul><br>
-    <h3>수상 경력</h3>
-    <ul>
-      <li>일본 외무대신상</li>
-      <li>전기공업신문사장상</li>
-      <li>국군지휘통신사령관상</li>
-    </ul>
-  </section>
+<!-- CAREER -->
+<section id="career" class="section fade-up">
+  <h3>경력 · 직무 소개</h3>
+  <ul>
+    <li>2022.12 ~ 2023.01 한국철도공사 청평신호제어사업소</li>
+    <li>2023.01 ~ 2024.01 한국도로공사 ITS 인증평가센터</li>
+    <li>2024.01 ~ 2025.07 국군지휘통신사령부 연평도통신소</li>
+    <li>2025.07 ~ 2026.03 한국도로공사 동서울지사</li>
+    <li>2026.03 ~ 2030.02 건국대학교 산업경영융합학부</li>
+  </ul>
 
-  <section id="contact" class="section fade-up">
-    <h3>연락처</h3>
-    <p data-copy="010-6444-1831">📞 010-6444-1831</p>
-    <p data-copy="02-2084-1763">📞 02-2084-1763</p>
-    <p data-copy="sonminseok0219@naver.com">✉️ sonminseok0219@naver.com</p>
-    <p data-copy="sonofms@ex.co.kr">✉️ sonofms@ex.co.kr</p>
-  </section>
+  <br />
 
-  <footer>
-    <p>© 2025 Minseok Son</p>
-  </footer>
+  <h3>자격</h3>
+  <ul>
+    <li>전기전자 산업기사 1 / 기능사 5</li>
+    <li>컴퓨터활용능력 1급</li>
+    <li>한국사능력검정 1급</li>
+    <li>JLPT N3 / TOEIC 830</li>
+  </ul>
+
+  <br />
+
+  <h3>수상</h3>
+  <ul>
+    <li>일본 외무대신상</li>
+    <li>전기공업신문사장상</li>
+    <li>국군지휘통신사령관상</li>
+  </ul>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section fade-up">
+  <h3>연락처</h3>
+
+  <p data-copy="010-6444-1831" role="button" tabindex="0">
+    📞 010-6444-1831
+  </p>
+  <p data-copy="sonminseok0219@naver.com" role="button" tabindex="0">
+    ✉️ sonminseok0219@naver.com
+  </p>
+</section>
+
+<footer>
+  <p>© 2025 Minseok Son</p>
+</footer>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
