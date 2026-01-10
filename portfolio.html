@@ -2,17 +2,30 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>자유게시판</title>
+
+  <meta
+    name="description"
+    content="손민석 포트폴리오 방문자를 위한 자유게시판입니다."
+  />
+
+  <link rel="preload" href="style.css" as="style" />
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+  <!-- Board JS -->
   <script defer src="board.js"></script>
 </head>
 <body>
 
 <header class="header">
   <h1 class="logo">FREE BOARD</h1>
+
   <nav class="nav">
     <a href="index.html">← 메인으로</a>
   </nav>
@@ -22,7 +35,7 @@
 
   <h3>자유게시판</h3>
 
-  <!-- 글 작성 -->
+  <!-- WRITE -->
   <div class="board-write">
     <input type="text" id="writer" placeholder="작성자" />
     <input type="text" id="title" placeholder="제목" />
@@ -30,7 +43,7 @@
     <button id="submit">글 등록</button>
   </div>
 
-  <!-- 게시글 목록 -->
+  <!-- LIST -->
   <div id="boardList" class="board-list"></div>
 
 </main>
