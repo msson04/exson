@@ -206,8 +206,8 @@ body {
 .board-write input, .board-write textarea { 
   padding: 12px 14px; 
   border-radius: 10px; 
-  border: 1px solid #ccc; f
-    ont-size: 14px; 
+  border: 1px solid #ccc; 
+  font-size: 14px; 
 } 
 .board-write textarea { 
   resize: vertical; min-height: 100px; 
@@ -272,4 +272,5 @@ body {
     transform: scale(0.97);
   }
 }
+
 
