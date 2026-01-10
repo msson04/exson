@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
      ADMIN
   ============================= */
   const ADMIN_KEY = "board_admin";
-  const ADMIN_PASSWORD = "Alstjr8476!"; // 🔐 여기만 너가 변경
+  const ADMIN_PASSWORD = "4768"; // 🔐 여기만 너가 변경
 
   let isAdmin = sessionStorage.getItem(ADMIN_KEY) === "true";
 
